@@ -1,7 +1,9 @@
+import 'package:animation_ui_in_flutter/models/headphones_model.dart';
 import 'package:flutter/material.dart';
 
 class ProductDetailScreen extends StatefulWidget {
-  const ProductDetailScreen({Key? key}) : super(key: key);
+  final HeadphonesModel headphones;
+  const ProductDetailScreen({Key? key, required this.headphones}) : super(key: key);
 
   @override
   State<ProductDetailScreen> createState() => _ProductDetailScreenState();
@@ -24,7 +26,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
         isContainerVisible = true;
         height = MediaQuery.of(context).size.height * 4;
         width = MediaQuery.of(context).size.height * 4;
-        radiusGeometry = BorderRadius.circular(50);
+        radiusGeometry = BorderRadius.circular(0);
       });
     });
     Future.delayed(const Duration(seconds: 1), () {
@@ -58,10 +60,9 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                 Container(
                                   margin: const EdgeInsets.only(top: 120),
                                   height: 450,
-                                  decoration: const BoxDecoration(
+                                  decoration: BoxDecoration(
                                       image: DecorationImage(
-                                          image: AssetImage(
-                                              "assets/images/Bitmap.png"))),
+                                          image: AssetImage(widget.headphones.image))),
                                 ),
                                 const SizedBox(height: 20),
                                 Row(
@@ -111,9 +112,9 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                   ],
                                 ),
                                 const SizedBox(height: 20),
-                                const Text(
-                                    "QuietComfort 35 wireless headphones II",
-                                    style: TextStyle(
+                                Text(
+                                    widget.headphones.name,
+                                    style: const TextStyle(
                                       fontSize: 26,
                                       color: Colors.white,
                                       fontWeight: FontWeight.w600,
@@ -129,9 +130,9 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                       size: 24.0,
                                       color: Colors.black,
                                     ),
-                                    label: const Text(
-                                      '\$449.99',
-                                      style: TextStyle(
+                                    label: Text(
+                                      widget.headphones.price,
+                                      style: const TextStyle(
                                         color: Colors.black,
                                         fontSize: 20,
                                         fontWeight: FontWeight.bold,
