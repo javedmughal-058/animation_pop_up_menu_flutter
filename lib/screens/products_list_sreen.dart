@@ -1,6 +1,9 @@
 
 import 'package:animation_ui_in_flutter/models/headphones_model.dart';
+import 'package:animation_ui_in_flutter/providers/product_provider.dart';
+import 'package:animation_ui_in_flutter/widgets/product_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'product_detail_screen.dart';
 
@@ -71,6 +74,9 @@ class _ProductsListScreenState extends State<ProductsListScreen>
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    ProductProvider productProvider = Provider.of<ProductProvider>(context);
+
+
     return Scaffold(
       backgroundColor: const Color(0xFFEBEBEB),
       appBar: AppBar(
@@ -120,75 +126,26 @@ class _ProductsListScreenState extends State<ProductsListScreen>
                   ),
                 ],
               ),
-              GridView.builder(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  childAspectRatio: 0.600,
-                ),
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: headphones.length,
-                itemBuilder: (context, index) {
-                  return SlideTransition(
-                    position: index % 2 == 0
-                        ? _leftSlideAnimation
-                        : _rightSlideAnimation,
-                    child: InkWell(
-                      onTap: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ProductDetailScreen(headphones: headphones[index]))),
-                      child: Container(
-                        margin: const EdgeInsets.all(10), // Consistent margin
-                        padding: const EdgeInsets.all(10), // Consistent padding
-                        width: size.width * 0.35,
-                        height: size.height * 0.45,
-                        decoration: const BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.all(Radius.circular(25)),
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              width: double.infinity,
-                              height: size.height * 0.45 / 3,
-                              decoration: BoxDecoration(
-                                // color: Colors.red,
-                                image: DecorationImage(
-                                  fit: BoxFit.fitHeight,
-                                  image: AssetImage(headphones[index].image),
-                                ),
-                              ),
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  headphones[index].name,
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                const SizedBox(height: 10),
-                                Text(
-                                  headphones[index].price,
-                                  style: const TextStyle(
-                                      // color: Color(
-                                      //     0xFFEBEBEB), // Adjust text color as needed
-                                      color: Colors.blue),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
+              productProvider.headphones.isEmpty
+                  ? const Text('No Product Available')
+                  : GridView.builder(
+                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      childAspectRatio: 0.600,
                     ),
-                  );
-                },
-              ),
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: productProvider.headphones.length,
+                    itemBuilder: (context, index) {
+                      return SlideTransition(
+                        position: index % 2 == 0
+                            ? _leftSlideAnimation
+                            : _rightSlideAnimation,
+                        child: buildListItems(context,size: size, index: index),
+                      );
+                    },
+                  ),
             ],
           ),
         ),
