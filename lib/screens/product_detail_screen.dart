@@ -125,7 +125,6 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                   child: ElevatedButton.icon(
                                     onPressed: () {},
                                     icon: const Icon(
-                                      // <-- Icon
                                       Icons.shopping_cart,
                                       size: 24.0,
                                       color: Colors.black,
@@ -137,7 +136,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                         fontSize: 20,
                                         fontWeight: FontWeight.bold,
                                       ),
-                                    ), // <-- Text
+                                    ),
                                     style: ElevatedButton.styleFrom(
                                       primary: Colors.white,
                                       padding: const EdgeInsets.symmetric(
