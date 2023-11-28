@@ -45,8 +45,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
             child: AnimatedContainer(
                 height: height,
                 width: width,
-                decoration:
-                    BoxDecoration(color: color, borderRadius: radiusGeometry),
+                decoration: BoxDecoration(color: color, borderRadius: radiusGeometry),
                 duration: const Duration(milliseconds: 2000),
                 curve: Curves.fastOutSlowIn,
                 child: showDetails
@@ -66,12 +65,10 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                 ),
                                 const SizedBox(height: 20),
                                 Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Container(
-                                      width: MediaQuery.of(context).size.width /
-                                          2.5,
+                                      width: MediaQuery.of(context).size.width / 2.5,
                                       height: 50,
                                       color: const Color(0xff606060),
                                       child: const Center(
